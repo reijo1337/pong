@@ -10,7 +10,7 @@ server = http.createServer((req, res) => {
   req.addListener('end', () => {
     file.serve(req, res);
   }).resume();
-}).listen(8081);
+}).listen(5000);
 
 
 // TODO make port configurable
