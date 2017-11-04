@@ -5,13 +5,27 @@ let http = require('http')
 let file = new(static.Server)('./public');
 
 // since socket.io 0.7 consumes one socket we need another socket to transmit all static files from ./public dir
-server = http.createServer((req, res) => {
-  // all static files are served with https://github.com/cloudhead/node-static
-  req.addListener('end', () => {
-    file.serve(req, res);
-  }).resume();
-}).listen(5000);
+// server = http.createServer((req, res) => {
+//   // all static files are served with https://github.com/cloudhead/node-static
+//   req.addListener('end', () => {
+//     file.serve(req, res);
+//   }).resume();
+// }).listen(8081);
 
+
+var express = require('express');
+var app     = express();
+
+app.set('port', (process.env.PORT || 5000));
+
+//For avoidong Heroku $PORT error
+app.get('/', function(request, response) {
+    req.addListener('end', () => {
+    file.serve(request, response);
+  }).resume();
+}).listen(app.get('port'), function() {
+    console.log('App is running, server is listening on port ', app.get('port'));
+});
 
 // TODO make port configurable
 // if you going to change this you also will need to change port in the connection line in ./public/pong.js
