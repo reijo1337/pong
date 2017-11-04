@@ -15,7 +15,7 @@ server = http.createServer((req, res) => {
 
 // TODO make port configurable
 // if you going to change this you also will need to change port in the connection line in ./public/pong.js
-let io = require('socket.io/lib/socket.io').listen(8080);
+let io = require('socket.io').listen(8080);
 
 let buffer = [], number_of_rooms = 10, rooms = [];
 
